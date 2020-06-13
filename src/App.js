@@ -7,34 +7,36 @@ import {
 } from "react-router-dom";
 import Profile from './containers/profile';
 import Home from './containers/home';
+import SignIn from './containers/signIn';
+import SignUp from './containers/signUp';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './containers/navbar';
 
 function App() {
   return (
     <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/profile">Users</Link>
-          </li>
-        </ul>
-      </nav>
+      <div>
+        <Navbar />
 
-      {/* A <Switch> looks through its children <Route>s and
+        {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/profile">
-          <Profile/>
-        </Route>
-        <Route path="/">
-          <Home/>
-        </Route>
-      </Switch>
-    </div>
-  </Router>
+        <Switch>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/sign-in">
+            <SignIn />
+          </Route>
+          <Route path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
