@@ -12,6 +12,7 @@ import SignUp from './containers/signUp';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './containers/navbar';
+import NewCompany from './containers/newCompany';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path="/profile">
             <Profile />
+          </Route>
+          <Route path="/register-company">
+            <NewCompany />
           </Route>
           <Route path="/sign-in">
             <SignIn />

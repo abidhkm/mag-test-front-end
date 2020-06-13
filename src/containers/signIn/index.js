@@ -27,7 +27,6 @@ const SignIn = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(value)
         const res = await callApi('post', '/users/signin', value)
 
         if (res.status === 200) {

@@ -114,7 +114,7 @@ const SignUp = () => {
                         status && <><Alert variant="success">
                             Successfully signed up. Please Login
                       </Alert>
-                      <Button variant="link" onClick={()=>history.push('/sign-in')} > Login</Button>
+                      <Button variant="link" href="/sign-in" > Login</Button>
                       </>
                     }
                     {
