@@ -7,13 +7,15 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { callApi } from '../../utils/api';
 import { useHistory } from "react-router-dom";
+import useCheckAuthenticate from '../../customHook/checkAuthenticate';
+import { connect } from 'react-redux';
 
 
-const NewCompany = () => {
+const NewCompany_ = ({userDetails}) => {
 
     let history = useHistory();
 
-
+    // useCheckAuthenticate(userDetails)
     const [value, setValue] = useState({
         name: '',
         address: '',
@@ -43,7 +45,6 @@ const NewCompany = () => {
 
     const onChangeHandler = (e) => {
         const { name, value: _value } = e.target;
-
         setValue({ ...value, [name]: _value })
     }
 
@@ -98,7 +99,7 @@ const NewCompany = () => {
                 }
                 {
                     status && <><Alert variant="success">
-                        Successfully signed up. Please Login
+                        Successfully created company.!
               </Alert>
                         <Button variant="link" href="/" > Dashboard</Button>
                     </>
@@ -113,5 +114,20 @@ const NewCompany = () => {
         </Row>
     </Container>
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        userDetails: state.user
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+       
+    }
+}
+
+const NewCompany = connect(mapStateToProps, mapDispatchToProps)(NewCompany_)
+
 
 export default NewCompany;

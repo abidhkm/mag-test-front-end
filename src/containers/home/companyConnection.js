@@ -2,10 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 
 import { callApi } from '../../utils/api';
 import ListGroupComponent from '../../components/ListGroup';
@@ -18,8 +14,12 @@ const CompanyDetails = ({ data }) => {
 
     useEffect(() => {
         const getRequests = async () => {
-            console.log(data)
             const res = await callApi('post', '/company/get-requests', { company_id: data.id })
+
+            // const res1 = await callApi('get', `/company/employees?companyId=${data.id}`)
+
+            // console.log(res1,"employees")
+
             if (res.status === 200) {
                 setRequests(res.data)
             }
@@ -44,7 +44,7 @@ const CompanyDetails = ({ data }) => {
         })
     }
 
-    const handleAccept = async(connection) => {
+    const handleAccept = async (connection) => {
         await callApi('put', '/company/respond', {
             status: 'accepted',
             connectionId: connection.id
@@ -66,7 +66,7 @@ const CompanyDetails = ({ data }) => {
         <Row>
             <Col xs={12} >
 
-                <Search handleSearch={handleSearch} placeholder="Search company"  />
+                <Search handleSearch={handleSearch} placeholder="Search company" />
                 <ListGroupComponent items={companyList} buttons={[{ label: 'Send connection', handleClick }]} />
 
             </Col>
@@ -74,6 +74,7 @@ const CompanyDetails = ({ data }) => {
 
         <Row>
             <Col xs={12} >
+                <div style={{ marginTop: 40 }} />
 
                 <h6>Connection requests</h6>
 

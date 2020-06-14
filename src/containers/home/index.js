@@ -7,11 +7,15 @@ import Spinner from 'react-bootstrap/Spinner';
 import { callApi } from '../../utils/api';
 import SendConnection from './companyConnection';
 import EmployeeConnection from './employeeConnection';
+import useAuthenticate from '../../customHook/authenticate';
+import { connect } from 'react-redux'
+import { updateUserDetails } from '../../actions';
 
-const Home = () => {
+const Home_ = ({ updateUserDetails, userDetails }) => {
 
     const [company, setCompany] = useState()
 
+    useAuthenticate(updateUserDetails, userDetails);
     useEffect(() => {
         const fetchCompany = async () => {
             const res = await callApi('get', '/company/fetch')
@@ -33,8 +37,11 @@ const Home = () => {
             <Col xs={2} />
             <Col xs={8} >
                 {company && <h3>{company.name}</h3>}
+                <div style={{ marginTop: 40 }} />
                 {company && <SendConnection data={company} />}
+                <div style={{ marginTop: 40 }} />
                 {company && <EmployeeConnection data={company} />}
+                <div style={{ marginTop: 40 }} />
                 {company === undefined && <div style={{ display: 'flex', height: '100vh', width: '100%', justifyContent: 'center', alignItems: 'center' }} >
                     <Spinner animation="border" role="status">
                         <span className="sr-only">Loading...</span>
@@ -50,4 +57,21 @@ const Home = () => {
     )
 }
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        userDetails: state.user
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        updateUserDetails: (details) => {
+            dispatch(updateUserDetails(details))
+        }
+    }
+}
+
+const Home = connect(mapStateToProps, mapDispatchToProps)(Home_)
+
+
+export default (Home);

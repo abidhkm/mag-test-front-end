@@ -14,7 +14,7 @@ const FormComponent = ({ fields, onSubmit }) => {
     }
 
     return (
-        <Form>
+        <Form onSubmit={onsubmit} > 
             {renderFields()}
             <Button variant="primary" type="submit" onClick={onSubmit} >
                 Submit

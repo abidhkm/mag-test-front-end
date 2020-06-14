@@ -111,17 +111,21 @@ const SignUp = () => {
                         !status && <Form fields={formFields} onSubmit={onSubmit} />
                     }
                     {
-                        status && <><Alert variant="success">
+                        status ? <><Alert variant="success">
                             Successfully signed up. Please Login
                       </Alert>
-                      <Button variant="link" href="/sign-in" > Login</Button>
-                      </>
+                            <Button variant="link" href="/sign-in" > Login</Button>
+                        </>
+                            :
+                            <><p>Have account already?</p> <Button href="/sign-in" > Sign in </Button> </>
+
                     }
                     {
                         status === false && <Alert variant="danger">
                             Something went wrong! try again
                        </Alert>
                     }
+
                 </Col>
                 <Col xs={2} />
             </Row>

@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import Form from '../../components/form'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import { callApi } from '../../utils/api';
 import { useHistory } from 'react-router-dom';
+import { updateUserDetails } from '../../actions';
+import { connect } from 'react-redux';
 
-const SignIn = () => {
+const SignIn_ = ({ updateUserDetails }) => {
     let history = useHistory();
 
     const [value, setValue] = useState({
@@ -31,8 +34,13 @@ const SignIn = () => {
 
         if (res.status === 200) {
             localStorage.setItem('token', res.data.token)
-            history.push('/')
+            updateUserDetails({ authenticated: true })
             setStatus(true)
+
+            setTimeout(() => {
+                history.push('/')
+
+            }, 2000);
         }
         else {
             setStatus(false)
@@ -69,11 +77,29 @@ const SignIn = () => {
                         Password or email is wrong.
                </Alert>
                 }
+                <p>Don't have account?</p> <Button href="/sign-up" > Sign up </Button>
             </Col>
             <Col xs={2} />
         </Row>
     </Container>
     )
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        updateUserDetails: (details) => {
+            dispatch(updateUserDetails(details))
+        }
+    }
+}
+
+const SignIn = connect(mapStateToProps, mapDispatchToProps)(SignIn_)
+
 
 export default SignIn;
